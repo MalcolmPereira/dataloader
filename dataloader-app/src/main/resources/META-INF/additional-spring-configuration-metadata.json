@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "dataloader.batch.size",
+      "type": "java.lang.String",
+      "description": "Property to add adjust the batch size for the sql server batch inserts."
+    },
+    {
+      "name": "dataloader.max.requests",
+      "type": "java.lang.Integer",
+      "description": "Property to set number of requests that can be handled concurrently."
+    },
+    {
+      "name": "dataloader.cache.ttl",
+      "type": "java.lang.Integer",
+      "description": "Property to set ttl in minutes."
+    },
+    {
+      "name": "dataloader.cache.cleanup.cron",
+      "type": "java.lang.String",
+      "description": "Property to clean up cache at regular intervals in cron format."
+    },
+    {
+      "name": "dataloader.cpu.utilization",
+      "type": "java.lang.Double",
+      "description": "Property to configure target cpu utilization using thread pools aggresive to lenient e.g. 0.95, 0.80, 0.75."
+    },
+    {
+      "name": "dataloader.cpu.wait.time",
+      "type": "java.lang.Integer",
+      "description": "Property to configure cpu wait time this is used in calculation of thread pool size, this is when we are waiting on I/O activities."
+    },
+    {
+      "name": "dataloader.cpu.process.time",
+      "type": "java.lang.Integer",
+      "description": "Property to configure cpu process time this is used in calculation of thread pool size, this is when cpu is performing a compute task."
+    }
+  ]
+}

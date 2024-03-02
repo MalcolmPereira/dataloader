@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="30">
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <!-- We are printing tn here, so we care log the different thread prefixes especially in async and task executor threads  -->
+            <PatternLayout pattern="[%-5p],[%28d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}],[%T],[%tn],[%c],%m,%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework" additivity="false" level="INFO"><AppenderRef ref="STDOUT"/></Logger>
+        <Logger name="org.eclipse.jetty" additivity="false" level="INFO"><AppenderRef ref="STDOUT"/></Logger>
+        <Logger name="com.zaxxer.hikari" additivity="false" level="INFO"><AppenderRef ref="STDOUT"/></Logger>
+        <Logger name="org.mybatis" additivity="false" level="INFO"><AppenderRef ref="STDOUT"/></Logger>
+        <Logger name="com.malcolm.dataloader" additivity="false" level="INFO"><AppenderRef ref="STDOUT"/></Logger>
+        <Root level="INFO"><AppenderRef ref="STDOUT"/></Root>
+    </Loggers>
+</Configuration>
