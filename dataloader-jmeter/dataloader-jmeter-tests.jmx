@@ -6,13 +6,15 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Data Loader Properties">
         <collectionProp name="Arguments.arguments">
           <elementProp name="DATA_LOADER_SERVER" elementType="Argument">
             <stringProp name="Argument.name">DATA_LOADER_SERVER</stringProp>
-            <stringProp name="Argument.value">10.85.24.136</stringProp>
+            <stringProp name="Argument.value">localhost</stringProp>
             <stringProp name="Argument.desc">Data Loader Server</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -37,7 +39,7 @@
           <elementProp name="TEST_CSV_FILE_PATH" elementType="Argument">
             <stringProp name="Argument.name">TEST_CSV_FILE_PATH</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.value">C:\temp\TO_DELETE\dataloader-jmeter\LOAD_TEST\load-test.csv</stringProp>
+            <stringProp name="Argument.value">&lt;SOME PATH&gt;\LOAD_TEST\load-test.csv</stringProp>
             <stringProp name="Argument.desc">File Path for test CSV files for upload</stringProp>
           </elementProp>
         </collectionProp>
@@ -67,7 +69,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Load Test CSV File" enabled="true">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Load Test CSV File">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="filename">${TEST_CSV_FILE_PATH}</stringProp>
@@ -87,12 +89,12 @@
           <stringProp name="TestPlan.comments">Print Debugs</stringProp>
         </DebugSampler>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Sequential-With-Cache">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Sequential-With-Cache" enabled="true">
           <stringProp name="TestPlan.comments">Sequential-With-Cache</stringProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Sequential">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Sequential" enabled="true">
             <stringProp name="TestPlan.comments">Sequential upload-sequential-cache</stringProp>
             <intProp name="HTTPSampler.concurrentPool">6</intProp>
             <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
@@ -137,7 +139,7 @@
               <stringProp name="TestPlan.comments">Check Error Code</stringProp>
             </JSONPathAssertion>
             <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Response Code">
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Response Code" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">code</stringProp>
               <stringProp name="RegexExtractor.refname">HTTP_STATUS_CODE</stringProp>
               <stringProp name="RegexExtractor.regex">\d+</stringProp>
@@ -155,17 +157,17 @@
             <stringProp name="TestPlan.comments">Print Debugs</stringProp>
           </DebugSampler>
           <hashTree/>
-          <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While-429">
+          <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While-429" enabled="true">
             <stringProp name="WhileController.condition">${__jexl3(${__javaScript((vars.get(&quot;HTTP_STATUS_CODE&quot;) != null) &amp;&amp; (vars.get(&quot;HTTP_STATUS_CODE&quot;) ==&quot;429&quot;),)})}</stringProp>
             <stringProp name="TestPlan.comments">If the status code is 429 retry</stringProp>
           </WhileController>
           <hashTree>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Sleep">
+            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Sleep" enabled="true">
               <stringProp name="ConstantTimer.delay">360000</stringProp>
               <stringProp name="TestPlan.comments">Sleep atleast 6 minutes so we are not executing on the server continuoulsy</stringProp>
             </ConstantTimer>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Sequential">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Sequential" enabled="true">
               <stringProp name="TestPlan.comments">Sequential upload-sequential-cache</stringProp>
               <intProp name="HTTPSampler.concurrentPool">6</intProp>
               <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
@@ -188,7 +190,7 @@
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="CheckHTTPStatus">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="CheckHTTPStatus" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="49586">200</stringProp>
                 </collectionProp>
@@ -199,7 +201,7 @@
                 <stringProp name="TestPlan.comments">Validate HTTP Status Code</stringProp>
               </ResponseAssertion>
               <hashTree/>
-              <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="CheckErrorCode">
+              <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="CheckErrorCode" enabled="true">
                 <stringProp name="JSON_PATH">$.errorCode</stringProp>
                 <stringProp name="EXPECTED_VALUE">0</stringProp>
                 <boolProp name="JSONVALIDATION">true</boolProp>
@@ -209,7 +211,7 @@
                 <stringProp name="TestPlan.comments">Check Error Code</stringProp>
               </JSONPathAssertion>
               <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Response Code">
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Response Code" enabled="true">
                 <stringProp name="RegexExtractor.useHeaders">code</stringProp>
                 <stringProp name="RegexExtractor.refname">HTTP_STATUS_CODE</stringProp>
                 <stringProp name="RegexExtractor.regex">\d+</stringProp>
@@ -319,7 +321,7 @@
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Data Loader Results">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Data Loader Results" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -357,7 +359,7 @@
         <stringProp name="TestPlan.comments">Data Loader Results</stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary">
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>

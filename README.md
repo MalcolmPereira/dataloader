@@ -619,8 +619,8 @@ We see the database starts to slow down and there is overall increase in the ela
 
 | Implementation                 |Batch Size|Thread Pool Size|Elapsed Time <br/> Minutes |JVM Memory <br/> MB | JVM CPU       |Max <br/>SQL Server CPU     |Max <br/>SQL Server Duration   |Max <br/>Logical Reads |Max <br/>Physical Reads | Max Writes|Deadlock Errors| 
 | --------                       |--------  |--------        |--------                   |--------            |--------       |--------                    |--------                       |--------               |--------                |--------   |--------       |
-|Sequential-Cache                |250       |-               |12                         |750                 |64.1 %         |1437000μs<br/>1437ms<br/>1s |7380177μs<br/>7380ms<br/>7s    |34545                  |5                       |2071       |Ye             |
-|Sequential-Cache (Rate Limit 5) |250       |-               |4.18                       |413                 |58.1 %         | 844000μs<br/>844ms<br/>0.8s|5435101μs<br/>5435ms<br/>5s    |24806                  |53                      |1560       |No             |
+|Sequential-Cache                |250       |-               |12                         |750                 |64.1 %         |1437000μs<br/>1437ms<br/>1s |7380177μs<br/>7380ms<br/>7s    |34545                  |5                       |2071       |Yes             |
+|Sequential-Cache<br/> (Rate Limit 5) |250       |-               |4.18                       |413                 |58.1 %         | 844000μs<br/>844ms<br/>0.8s|5435101μs<br/>5435ms<br/>5s    |24806                  |53                      |1560       |No             |
 
 **Please see Appendix section for details about these measurements. 
 
